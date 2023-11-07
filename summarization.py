@@ -8,7 +8,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 nltk.download('punkt')
 nltk.download('stopwords')
 
-
+# Function Definition
 def summarize_text(input_text, summary_length=7):
     # Tokenize the text into sentences
     sentences = sent_tokenize(input_text)
@@ -41,6 +41,7 @@ def summarize_text(input_text, summary_length=7):
 
     return summary
 
+# Body
 if __name__ == "__main__":
     text = input()
     summary = summarize_text(text)
