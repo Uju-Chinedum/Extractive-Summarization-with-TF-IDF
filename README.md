@@ -101,4 +101,4 @@ curl -X POST -H "Content-Type: application/json" -d '{"text": "Your long input t
 
 ## Author
 
-This project was built by [me](github.com/Uju-Chinedum) and [Khay](github.com/Khay-dev)
+This project was built by [me](https://www.github.com/Uju-Chinedum) and [Khay](https://www.github.com/Khay-dev)
