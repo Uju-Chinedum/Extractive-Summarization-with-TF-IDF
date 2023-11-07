@@ -5,7 +5,6 @@ import os
 
 # Variable Declaration
 app = Flask(__name__)
-host = os.environ.get("")
 
 # Function Definition
 
