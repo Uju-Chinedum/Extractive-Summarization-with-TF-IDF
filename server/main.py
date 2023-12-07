@@ -9,6 +9,10 @@ app = Flask(__name__)
 # Function Definition
 
 
+@app.route("/")
+def hello():
+    return "Hello, Welcome to this Summarizer"
+
 @app.route("/summarize", methods=["POST"])
 def run_summarization():
     data = request.json
