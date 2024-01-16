@@ -1,7 +1,6 @@
 #==== Imports ====#
 from tkinter import *
-import json
-# from .server.summarization import extractive_summarization, abstractive_summarization
+from summarization import extractive_summarization, abstractive_summarization
 
 
 #==== Function Definitions ====#
@@ -14,25 +13,11 @@ def on_text_click(event):
 # Summarization
 def summarizer():
     input = text.get()
+    sentences = int(entry.get())
 
-    if len(site) == 0 or len(pass_) == 0:
-        messagebox.showwarning(title = "Empty Fields",
-                               message = "Please don't leave any field empty")
-    else:
-        try:
-            with open(FILE, "r") as file:
-                data = json.load(file)
-        except FileNotFoundError:
-            with open(FILE, "w") as file:
-                json.dump(credentials, file, indent = 4)
-        else:
-            data.update(credentials)
+    extractive = extractive_summarization(input, sentences)
 
-            with open(FILE, "w") as file:
-                json.dump(data, file, indent=4)
-        finally:
-            website.delete(0, END)
-            password.delete(0, END)
+    output.config(text = extractive)
 
 
 #==== Declarations ====#
