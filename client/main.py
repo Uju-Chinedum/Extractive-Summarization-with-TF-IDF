@@ -1,77 +1,32 @@
 #==== Imports ====#
 from tkinter import *
-import json
+from summarization import extractive_summarization, abstractive_summarization
 
 
 #==== Function Definitions ====#
-# # Save Password
-# def save():
-#     site = website.get()
-#     mail = email.get()
-#     pass_ = password.get()
-#     credentials = {
-#         site: {
-#             "email": mail,
-#             "password": pass_
-#         }
-#     }
+def on_text_click(event):
+    if text.get("1.0", "end-1c") == "Enter your text here...":
+        text.delete("1.0", "end")
+        text.config(fg='black')
 
-#     if len(site) == 0 or len(pass_) == 0:
-#         messagebox.showwarning(title = "Empty Fields",
-#                                message = "Please don't leave any field empty")
-#     else:
-#         try:
-#             with open(FILE, "r") as file:
-#                 data = json.load(file)
-#         except FileNotFoundError:
-#             with open(FILE, "w") as file:
-#                 json.dump(credentials, file, indent = 4)
-#         else:
-#             data.update(credentials)
 
-#             with open(FILE, "w") as file:
-#                 json.dump(data, file, indent=4)
-#         finally:
-#             website.delete(0, END)
-#             password.delete(0, END)
+# Summarization
+def summarizer():
+    input = text.get()
+    sentences = int(entry.get())
 
-# # Password Generator
-# def gen_passcode():
-#     password_letters = [choice(letters) for _ in range(randint(8, 10))]
-#     password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
-#     password_numbers = [choice(numbers) for _ in range(randint(2, 4))]
+    extractive = extractive_summarization(input, sentences)
 
-#     password_list = password_letters + password_symbols + password_numbers
-#     shuffle(password_list)
-
-#     passcode = "".join(password_list)
-#     password.insert(0, passcode)
-#     pyperclip.copy(passcode)
-
-# # Find Password
-# def find_password():
-#     try:
-#         with open(FILE, "r") as file:
-#             data = json.load(file)
-
-#             site = website.get()
-#             mail = data[site]["email"]
-#             pass_ = data[site]["password"]
-#     except FileNotFoundError:
-#         messagebox.showwarning(title = "Missing File",
-#                                message = "No password file found")
-#     except KeyError:
-#         messagebox.showwarning(title = "Missing Data",
-#                                message = f"No details for {site} exists")
-#     else:
-#         messagebox.showinfo(title = site, message = f"Email/Username: {mail}\nPassword: {pass_}")
-
+    output.config(text = extractive)
 
 
 #==== Declarations ====#
 window = Tk()
-text = Text(height = 17, width = 155)
-summarize = Button(text = "Summarize") #, command = gen_passcode)
+text = Text(height = 17, width = 130, wrap="word", font = ("Times New Roman", 12))
+entry = Entry(width = 4)
+entry_label = Label(text = "Number of Sentences: ", font = ("Times New Roman", 12))
+summarize = Button(text = "Summarize", font = ("Times New Roman", 10, "bold"), command = summarizer)
+output = Label(text = "OUTPUT", bg = "white", height = 12, width = 135, font = ("Times New Roman", 12))
 
 
 #==== Body ====#
@@ -80,9 +35,18 @@ window.title("K  H  A  Y  '  S    S  U  M  M  A  R  I  Z  E  R")
 window.config(padx = 50, pady = 50)
 
 text.grid(column=0, row=0, columnspan=5, rowspan=5, padx=10, pady=10)
-text.focus()
+text.insert("1.0", "Enter your text here...")
+text.config(fg='grey')  # Set initial text color to grey
+text.bind("<FocusIn>", on_text_click)
+
+entry.grid(column = 1, row = 5)
+entry.insert(0, 7)
+
+entry_label.grid(column = 0, row = 5, columnspan = 2)
 
 summarize.config(padx=20)
 summarize.grid(column = 2, row = 5, pady=10)
+
+output.grid(column=0, row=6, columnspan=5, rowspan=5, padx=10, pady=10)
 
 window.mainloop()
