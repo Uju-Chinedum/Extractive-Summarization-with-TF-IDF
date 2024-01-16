@@ -72,6 +72,7 @@ import json
 window = Tk()
 text = Text(height = 17, width = 155)
 summarize = Button(text = "Summarize") #, command = gen_passcode)
+output = Label(bg = "white", height = 12, width = 135, font = ("Times New Roman", 12))
 
 
 #==== Body ====#
@@ -84,5 +85,7 @@ text.focus()
 
 summarize.config(padx=20)
 summarize.grid(column = 2, row = 5, pady=10)
+
+output.grid(column=0, row=6, columnspan=5, rowspan=5, padx=10, pady=10)
 
 window.mainloop()
